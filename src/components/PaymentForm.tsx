@@ -30,14 +30,17 @@ const PaymentForm = () => {
   const { data: session } = useSession();
   const handleCheckout = async () => {
     const stripe = await stripePromise;
-    const response = await fetch("http://localhost:3000/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        items: productData,
-        email: session?.user?.email,
-      }),
-    });
+    const response = await fetch(
+      "https://smart-shop-opal.vercel.app/api/checkout",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: productData,
+          email: session?.user?.email,
+        }),
+      }
+    );
     const data = await response.json();
 
     if (response.ok) {
